@@ -31,7 +31,7 @@
 #include <linux/usb/input.h>
 #include <linux/hid.h>
 
-#include "../myModule/mouseListenerExtern.h"
+#include "../kmodule/mouseListenerExtern.h"
 
 /*
  * Version Information
