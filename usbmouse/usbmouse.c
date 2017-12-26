@@ -31,7 +31,7 @@
 #include <linux/usb/input.h>
 #include <linux/hid.h>
 
-#include "../kmodule/mouseListenerExtern.h"
+#include "../kmodule/mouseGestModuleExtern.h"
 
 /*
  * Version Information
@@ -76,15 +76,8 @@ static void usb_mouse_irq(struct urb *urb)
         }
 
 	if (data[0] & 0x04) // middle button pressed
-        	if (mouseListenerSendCoordinates(data[0], data[1], data[2], data[3]) == 0)
-	            printk(KERN_CRIT "My USB module    |   Can't send data");
-
-	if (data[0] & 0x01)
-		printk("usbmouse: LEFT BUTTON");
-	if (data[0] & 0x02)
-		printk("usbmouse: RIGHT BUTTON");
-	if (data[0] & 0x04)
-		printk("usbmouse: MIDDLE BUTTON");
+		if (mouseGestSendCoordinates(data[1], data[2]) == 0)
+			printk(KERN_INFO "usbmouse: Can't send data");
 
         input_report_key(dev, BTN_LEFT,   data[0] & 0x01);
         input_report_key(dev, BTN_RIGHT,  data[0] & 0x02);
